@@ -1,0 +1,20 @@
+<form>
+  <mat-form-field class="search-field">
+    <mat-label>Commune</mat-label>
+    <input type="text"
+           placeholder="Rechercher une commune"
+           aria-label="Commune"
+           matInput
+           [formControl]="formControl"
+           [matAutocomplete]="auto">
+    <mat-autocomplete (optionSelected)="onSelect($event)" [displayWith]="displayFn" autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+        {{option.nom}} | {{option.population | number:'1.0'}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>
+
+<div class="my-google-map">
+  <google-map [options]="options$ | async"></google-map>
+</div>
